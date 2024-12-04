@@ -1,7 +1,6 @@
 package edu.icet.controller;
 
-import edu.icet.dto.AccommodationPackage;
-import edu.icet.dto.DayOutPackage;
+
 import edu.icet.dto.MenuOptionsPackage;
 import edu.icet.service.MenuOptionsService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/menu-option")
 @RequiredArgsConstructor
 public class MenuOptionsPackageController {
 
@@ -20,76 +20,60 @@ public class MenuOptionsPackageController {
 
     @PostMapping("/add-menu-option-package")
     public boolean postPackageDetails(
-            @RequestParam("packageNum") String packageNum,
-            @RequestParam("packageName") String packageName,
-            @RequestParam("packageDetails") List<String> packageDetails,
-            @RequestParam("image1") MultipartFile file1,
-            @RequestParam("image2")MultipartFile file2,
-            @RequestParam("image3")MultipartFile file3,
-            @RequestParam("image4")MultipartFile file4,
-            @RequestParam("price")Integer price,
-            @RequestParam("availableQty")Integer availableSheets
-    ) throws IOException {
-        byte[] bytes1= file1.getBytes();
-        byte[] bytes2= file2.getBytes();
-        byte[] bytes3= file3.getBytes();
-        byte[] bytes4= file4.getBytes();
-        MenuOptionsPackage menuOptionsPackage=new MenuOptionsPackage();
-        menuOptionsPackage.setPackageNum(packageNum);
-        menuOptionsPackage.setPackageName(packageName);
-        menuOptionsPackage.setPackageDetails(packageDetails);
-        menuOptionsPackage.setImage1(bytes1);
-        menuOptionsPackage.setImage2(bytes2);
-        menuOptionsPackage.setImage3(bytes3);
-        menuOptionsPackage.setImage4(bytes4);
-        menuOptionsPackage.setPrice(price);
-        menuOptionsPackage.setAvailableSheets(availableSheets);
-        service.postPackage(menuOptionsPackage);
-        return false;
-    }
-    @GetMapping("/get-menu-option-package")
-    public List<MenuOptionsPackage> getPackageDetails(){
-
-        return service.getPackageDetails();
-    }
-    @PutMapping("/update-menuoptions-details")
-    public boolean updatePackageDetails(
             @RequestParam("id")String id,
             @RequestParam("packageNum") String packageNum,
             @RequestParam("packageName") String packageName,
             @RequestParam("packageDetails") List<String> packageDetails,
-            @RequestParam("image1")MultipartFile file1,
-            @RequestParam("image2")MultipartFile file2,
-            @RequestParam("image3")MultipartFile file3,
-            @RequestParam("image4")MultipartFile file4,
-            @RequestParam("price")Integer price,
+            @RequestParam("image") MultipartFile file,
+           @RequestParam("price")Integer price,
             @RequestParam("availableQty")Integer availableSheets
     ) throws IOException {
-        byte[] bytes1= file1.getBytes();
-        byte[] bytes2= file2.getBytes();
-        byte[] bytes3= file3.getBytes();
-        byte[] bytes4= file4.getBytes();
+        byte[] bytes= file.getBytes();
         MenuOptionsPackage menuOptionsPackage=new MenuOptionsPackage();
         menuOptionsPackage.setMenuOptionId(Integer.parseInt(id));
         menuOptionsPackage.setPackageNum(packageNum);
         menuOptionsPackage.setPackageName(packageName);
         menuOptionsPackage.setPackageDetails(packageDetails);
-        menuOptionsPackage.setImage1(bytes1);
-        menuOptionsPackage.setImage2(bytes2);
-        menuOptionsPackage.setImage3(bytes3);
-        menuOptionsPackage.setImage4(bytes4);
+        menuOptionsPackage.setImage(bytes);
         menuOptionsPackage.setPrice(price);
+        menuOptionsPackage.setAvailableSheets(availableSheets);
+        service.postPackage(menuOptionsPackage);
+        return false;
+    }
+    @GetMapping("/get-all-menu-option-packages")
+    public List<MenuOptionsPackage> getPackageDetails(){
+
+        return service.getPackageDetails();
+    }
+    @PutMapping("/update-menu-options-package")
+    public boolean updatePackageDetails(
+            @RequestParam("id")String id,
+            @RequestParam("packageNum") String packageNum,
+            @RequestParam("packageName") String packageName,
+            @RequestParam("packageDetails") List<String> packageDetails,
+            @RequestParam("image")MultipartFile file,
+            @RequestParam("price")Integer price,
+            @RequestParam("availableQty")Integer availableSheets
+    ) throws IOException {
+        byte[] bytes= file.getBytes();
+        MenuOptionsPackage menuOptionsPackage=new MenuOptionsPackage();
+        menuOptionsPackage.setMenuOptionId(Integer.parseInt(id));
+        menuOptionsPackage.setPackageNum(packageNum);
+        menuOptionsPackage.setPackageName(packageName);
+        menuOptionsPackage.setPackageDetails(packageDetails);
+        menuOptionsPackage.setImage(bytes);
+         menuOptionsPackage.setPrice(price);
         menuOptionsPackage.setAvailableSheets(availableSheets);
 
         service.updatePackage(menuOptionsPackage);
 
         return false;
     }
-    @GetMapping("/search-by-id-menuoptions/{id}")
+    @GetMapping("/search-by-id/{id}")
     public MenuOptionsPackage searchById(@PathVariable Integer id){
         return service.searchById(id);
     }
-    @DeleteMapping("/delete-by-id-menuoptions/{id}")
+    @DeleteMapping("/delete-by-id/{id}")
     public void deleteById(@PathVariable Integer id){
         service.deleteById(id);
     }

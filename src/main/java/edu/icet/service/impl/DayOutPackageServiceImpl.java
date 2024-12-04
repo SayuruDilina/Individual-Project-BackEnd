@@ -1,4 +1,4 @@
-package edu.icet.service.Impl;
+package edu.icet.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.dto.DayOutPackage;

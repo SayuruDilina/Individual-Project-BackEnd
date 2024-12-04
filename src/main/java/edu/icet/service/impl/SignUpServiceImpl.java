@@ -1,4 +1,4 @@
-package edu.icet.service.Impl;
+package edu.icet.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.dto.User;
@@ -7,6 +7,7 @@ import edu.icet.repository.UserRepository;
 import edu.icet.service.SignUpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,5 +44,11 @@ public class SignUpServiceImpl implements SignUpService {
             users.add(mapper.convertValue(userEntity, User.class));
         });
         return users;
+    }
+
+    @Override
+    @Transactional
+    public boolean checkEmailExists(String email) {
+          return repository.checkEmail(email).isPresent();
     }
 }

@@ -1,6 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Employee;
+import edu.icet.service.EmailService;
 import edu.icet.service.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +17,16 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/employee")
 @RequiredArgsConstructor
 public class EmployeesController {
 
     private  final EmployeeService service;
+    private final EmailService emailService;
     @PostMapping("/register-employee")
     public ResponseEntity<Object> registerEmployee(@Valid @RequestBody Employee employee){
         service.registerEmployee(employee);
+        emailService.sendMail(employee.getEmployeeName(),employee.getEmail());
         return ResponseEntity.ok().body(new HashMap<String, String>() {{
             put("message", "User saved successfully");
         }});
@@ -32,6 +36,12 @@ public class EmployeesController {
     public  List<Employee> getAll(){
         return service.getAllEmployees();
     }
+
+    @GetMapping("get-employees-count")
+    public  Long getMemberCount(){
+        return service.getEmployeeCount();
+    }
+
     @PutMapping("/update-employee")
     public  void updateEmployee(@RequestBody Employee employee){
         service.updateEmployee(employee);

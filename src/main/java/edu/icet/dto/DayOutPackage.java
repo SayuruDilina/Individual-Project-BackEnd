@@ -15,10 +15,7 @@ public class DayOutPackage {
     private String  packageNum;
     private  String packageName;
     private List<String> packageDetails;
-    private  byte[] image1;
-    private  byte[] image2;
-    private  byte[] image3;
-    private  byte[] image4;
+    private  byte[] image;
     private  Integer price;
     private Integer availableSheets;
 }

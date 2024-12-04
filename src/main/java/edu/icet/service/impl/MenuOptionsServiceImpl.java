@@ -1,4 +1,4 @@
-package edu.icet.service.Impl;
+package edu.icet.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.dto.MenuOptionsPackage;
@@ -6,7 +6,6 @@ import edu.icet.entity.MenuOptionsPackageEntity;
 import edu.icet.repository.MenuOptionsRepository;
 import edu.icet.service.MenuOptionsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,9 +18,9 @@ public class MenuOptionsServiceImpl implements MenuOptionsService {
     private final  MenuOptionsRepository repository;
     private  final ObjectMapper mapper;
     @Override
-    public boolean postPackage(MenuOptionsPackage menuOptionsPackage) {
+    public void postPackage(MenuOptionsPackage menuOptionsPackage) {
         repository.save(mapper.convertValue(menuOptionsPackage, MenuOptionsPackageEntity.class));
-        return false;
+
     }
 
     @Override

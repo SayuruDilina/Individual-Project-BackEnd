@@ -11,4 +11,6 @@ public interface SignUpService {
     Long getUserCount();
 
     List<User> getAll();
+
+    boolean checkEmailExists(String email);
 }

@@ -11,23 +11,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="accommodations")
+@Table(name="AccommodationPackages")
 public class AccommodationPackageEntity {
     @Id
-
     private Integer accommodationId;
     private String  packageNum;
     private  String packageName;
     @ElementCollection
     private List<String> packageDetails;
-    @Column(name="image1",columnDefinition ="MEDIUMBLOB")
-    private  byte[] image1;
-    @Column(name="image2",columnDefinition ="MEDIUMBLOB")
-    private  byte[] image2;
-    @Column(name="image3",columnDefinition ="MEDIUMBLOB")
-    private  byte[] image3;
-    @Column(name="image4",columnDefinition ="MEDIUMBLOB")
-    private  byte[] image4;
+    @Column(name="image",columnDefinition ="MEDIUMBLOB")
+    private  byte[] image;
     private  Integer price;
     private Integer availableQty;
 

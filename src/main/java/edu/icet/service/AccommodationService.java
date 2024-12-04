@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AccommodationService {
 
-    boolean postPackage(AccommodationPackage accommodationPackage);
+    void postPackage(AccommodationPackage accommodationPackage);
 
     List<AccommodationPackage> getPackageDetails();
 

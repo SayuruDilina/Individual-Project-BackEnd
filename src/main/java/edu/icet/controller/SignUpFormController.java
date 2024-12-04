@@ -1,6 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.User;
+import edu.icet.service.EmailService;
 import edu.icet.service.SignUpService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,17 +15,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.http.ResponseEntity.status;
-
 @RestController
 @CrossOrigin
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class SignUpFormController {
 
     private final SignUpService service;
+    private final EmailService emailService;
     @PostMapping("/add-user")
     public  ResponseEntity<Object> registerUser(@Valid @RequestBody User user){
           service.registerUser(user);
+          emailService.sendMailToNewUser(user.getUserName(),user.getEmail());
         return ResponseEntity.ok().body(new HashMap<String, String>() {{
             put("message", "User saved successfully");
         }});
@@ -44,9 +46,32 @@ public class SignUpFormController {
      return service.getUserCount();
     }
 
-    @GetMapping("/get-all")
+    @GetMapping("/get-all-users")
     public List<User> getAll(){
         return service.getAll();
+    }
+    @GetMapping("/email-exists-check/{email}")
+    public ResponseEntity<String>  checkExistsEmail(@PathVariable String email){
+        boolean emailExists = service.checkEmailExists(email);
+        if(emailExists){
+            return  ResponseEntity.ok("Your email Already Registered");
+        }else {
+            return ResponseEntity.ok("Ok");
+        }
+    }
+
+    @GetMapping("/send-otp/{email}")
+    public ResponseEntity<Object> sendOtp(@PathVariable String email){
+        emailService.sendOtp(email);
+        return ResponseEntity.ok().body("otp send successfully") ;
+    }
+
+    @PutMapping("/reset-password")
+    public Boolean resetPassword(@RequestParam("otp") String otp,
+                                 @RequestParam("password") String password
+                                 ) {
+
+        return emailService.verifyOtp(otp,password);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

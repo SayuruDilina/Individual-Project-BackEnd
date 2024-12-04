@@ -1,6 +1,5 @@
 package edu.icet.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.dto.AccommodationPackage;
 import edu.icet.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +12,11 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
+@RequestMapping("/accommodation")
 public class AccommodationPackagesController {
 
     private final AccommodationService service;
-private final ObjectMapper mapper;
+
 
     @PostMapping("/add-accommodation-package")
     public boolean postPackageDetails(
@@ -24,25 +24,17 @@ private final ObjectMapper mapper;
             @RequestParam("packageNum") String packageNum,
             @RequestParam("packageName") String packageName,
             @RequestParam("packageDetails") List<String> packageDetails,
-            @RequestParam("image1")MultipartFile file1,
-            @RequestParam("image2")MultipartFile file2,
-            @RequestParam("image3")MultipartFile file3,
-            @RequestParam("image4")MultipartFile file4,
+            @RequestParam("image")MultipartFile file,
             @RequestParam("price")Integer price,
             @RequestParam("availableQty")Integer availableQty
             ) throws IOException {
-        byte[] bytes1= file1.getBytes();
-        byte[] bytes2= file2.getBytes();
-        byte[] bytes3= file3.getBytes();
-        byte[] bytes4= file4.getBytes();
+        byte[] bytes= file.getBytes();
+
         AccommodationPackage accommodationPackage=new AccommodationPackage();
         accommodationPackage.setPackageNum(packageNum);
         accommodationPackage.setPackageName(packageName);
         accommodationPackage.setPackageDetails(packageDetails);
-        accommodationPackage.setImage1(bytes1);
-        accommodationPackage.setImage2(bytes2);
-        accommodationPackage.setImage3(bytes3);
-        accommodationPackage.setImage4(bytes4);
+        accommodationPackage.setImage(bytes);
         accommodationPackage.setPrice(price);
         accommodationPackage.setAvailableQty(availableQty);
         accommodationPackage.setAccommodationId(Integer.parseInt(id));
@@ -52,36 +44,27 @@ private final ObjectMapper mapper;
         return false;
     }
 
-    @GetMapping("/get-accommodation-package")
+    @GetMapping("/get-all-accommodation-packages")
     public List<AccommodationPackage> getPackageDetails(){
 
         return service.getPackageDetails();
     }
-    @PutMapping("/update-accommodation-details")
+    @PutMapping("/update-accommodation-package")
     public boolean updatePackageDetails(
             @RequestParam("id")String id,
             @RequestParam("packageNum") String packageNum,
             @RequestParam("packageName") String packageName,
             @RequestParam("packageDetails") List<String> packageDetails,
-            @RequestParam("image1")MultipartFile file1,
-            @RequestParam("image2")MultipartFile file2,
-            @RequestParam("image3")MultipartFile file3,
-            @RequestParam("image4")MultipartFile file4,
+            @RequestParam("image")MultipartFile file,
             @RequestParam("price")Integer price,
             @RequestParam("availableQty")Integer availableQty
     ) throws IOException {
-        byte[] bytes1= file1.getBytes();
-        byte[] bytes2= file2.getBytes();
-        byte[] bytes3= file3.getBytes();
-        byte[] bytes4= file4.getBytes();
+        byte[] bytes= file.getBytes();
         AccommodationPackage accommodationPackage=new AccommodationPackage();
         accommodationPackage.setPackageNum(packageNum);
         accommodationPackage.setPackageName(packageName);
         accommodationPackage.setPackageDetails(packageDetails);
-        accommodationPackage.setImage1(bytes1);
-        accommodationPackage.setImage2(bytes2);
-        accommodationPackage.setImage3(bytes3);
-        accommodationPackage.setImage4(bytes4);
+        accommodationPackage.setImage(bytes);
         accommodationPackage.setPrice(price);
         accommodationPackage.setAvailableQty(availableQty);
         accommodationPackage.setAccommodationId(Integer.parseInt(id));

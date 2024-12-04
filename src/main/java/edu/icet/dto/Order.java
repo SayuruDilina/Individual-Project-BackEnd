@@ -15,7 +15,7 @@ public class Order {
     private  String customerName;
     private Integer packageID;
     private  String email;
-    private String total;
+    private Double total;
     private Integer qty;
     private LocalDate checkIn;
     private  LocalDate checkOut;

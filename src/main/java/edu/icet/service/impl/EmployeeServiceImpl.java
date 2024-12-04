@@ -1,4 +1,4 @@
-package edu.icet.service.Impl;
+package edu.icet.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.dto.Employee;
@@ -41,5 +41,10 @@ private  final ObjectMapper mapper;
     @Override
     public void deleteEmployee(Integer id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public Long getEmployeeCount() {
+        return repository.count();
     }
 }

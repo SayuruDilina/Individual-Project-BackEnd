@@ -6,7 +6,7 @@ import edu.icet.dto.MenuOptionsPackage;
 import java.util.List;
 
 public interface MenuOptionsService {
-    boolean postPackage(MenuOptionsPackage menuOptionsPackage);
+    void postPackage(MenuOptionsPackage menuOptionsPackage);
 
     List<MenuOptionsPackage> getPackageDetails();
 
