@@ -13,4 +13,5 @@ public interface SignUpService {
     List<User> getAll();
 
     boolean checkEmailExists(String email);
+     String verify(User user,String rawPassword);
 }

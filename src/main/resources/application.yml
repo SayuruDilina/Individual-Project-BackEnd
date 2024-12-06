@@ -18,3 +18,10 @@ spring:
        smtp:
         auth: true
         starttls.enable: true
+
+#
+#  security:
+#    user:
+#      name: tumiraduli@gmail.com
+#      password: 1234
+

@@ -37,7 +37,7 @@ public class EmployeesController {
         return service.getAllEmployees();
     }
 
-    @GetMapping("get-employees-count")
+    @GetMapping("/get-employees-count")
     public  Long getMemberCount(){
         return service.getEmployeeCount();
     }
